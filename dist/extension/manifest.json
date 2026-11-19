@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Clicknote",
+  "version": "0.4.0",
+  "description": "Annotate elements on a web page and send them to your coding agent.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAo32LYut0gyZqkBfeoEX97lsX1m3d+iMbmeCkG7843FqZwDxCgRiPbYakH9h9bDnSxI3jxtt5/RDyyoayYtDlrJ6gCSE1P2rUy6QOK/O508QbR2PkNN5QpBZSHxEyn+x3QcQl5wsq2pKZPxY72IVwVSYQ8UN5wGj9CL7NkM5Jf6eeA6ALm7I10xNkrUi+mNd0lCL5FkEjcMLGlMN5Vf45ORQdhUnSG40nSMPiUMg9qnHpOYw5198g4ca1GhQW7NIMndnwrI9BdmjVf/Hz5t66xMVcrlO6pDXNEoX1hT0ZUDoOId0BIZM9N2E2AAuLOEHN6ldw4TKkddANDooNVF4K4wIDAQAB",
+  "permissions": ["activeTab", "scripting", "storage", "clipboardWrite"],
+  "host_permissions": ["http://127.0.0.1/*"],
+  "icons": { "16": "icons/icon-16.png", "32": "icons/icon-32.png", "48": "icons/icon-48.png", "128": "icons/icon-128.png" },
+  "action": {
+    "default_title": "Annotate this page for your coding agent",
+    "default_icon": { "16": "icons/icon-16.png", "32": "icons/icon-32.png" }
+  },
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [{ "matches": ["http://127.0.0.1:47823/open/*"], "js": ["opened.js"], "run_at": "document_start" }],
+  "commands": { "_execute_action": { "suggested_key": { "default": "Alt+Shift+H" } } }
+}
