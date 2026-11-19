@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Fixture</title>
+  <link rel="icon" href="data:,">
+  <style>
+    body { margin: 24px; max-width: 640px; font: 16px/1.5 system-ui, sans-serif; }
+    header { position: relative; display: flex; gap: 16px; align-items: center; }
+    #menu, #account-menu { position: absolute; top: 100%; left: 0; margin: 4px 0 0; padding: 8px 16px;
+      list-style: none; background: #fff; border: 1px solid #ccc; }
+    #account { position: relative; }
+    #features { display: flex; gap: 16px; margin: 24px 0; }
+    .card { flex: 1; padding: 8px 16px; border: 1px solid #ddd; }
+    x-widget { display: block; margin-bottom: 24px; }
+  </style>
+</head>
+<body>
+  <header>
+    <button id="cta">Get started</button>
+    <a id="link" href="other.html">Other</a>
+    <button id="menu-button" aria-expanded="false" aria-controls="menu">Menu</button>
+    <ul id="menu" hidden>
+      <li>Profile</li>
+      <li>Settings</li>
+    </ul>
+    <div id="account">
+      <button id="account-button" aria-expanded="false" aria-controls="account-menu">Account</button>
+      <ul id="account-menu" hidden>
+        <li>Your account</li>
+        <li>Sign out</li>
+      </ul>
+    </div>
+  </header>
+  <section id="features">
+    <div class="card"><h3>Fast</h3></div>
+    <div class="card"><h3>Exact</h3></div>
+    <div class="card"><h3>Readable</h3></div>
+  </section>
+  <x-widget id="host"></x-widget>
+  <iframe id="frame" srcdoc="<button>inside</button>"></iframe>
+  <script>
+    customElements.define('x-widget', class extends HTMLElement {
+      constructor() {
+        super();
+        this.attachShadow({ mode: 'open' }).innerHTML = '<button>Inside the shadow root</button>';
+      }
+    });
+
+    const menuButton = document.querySelector('#menu-button');
+    const menu = document.querySelector('#menu');
+    menuButton.addEventListener('click', () => {
+      menu.hidden = !menu.hidden;
+      menuButton.setAttribute('aria-expanded', String(!menu.hidden));
+    });
+
+    // A menu that closes when focus lands anywhere outside it, as many menus do.
+    const accountButton = document.querySelector('#account-button');
+    const accountMenu = document.querySelector('#account-menu');
+    accountButton.addEventListener('click', () => {
+      accountMenu.hidden = !accountMenu.hidden;
+      accountButton.setAttribute('aria-expanded', String(!accountMenu.hidden));
+    });
+    document.addEventListener('focusin', event => {
+      if (event.target === accountButton || accountMenu.contains(event.target)) return;
+      accountMenu.hidden = true;
+      accountButton.setAttribute('aria-expanded', 'false');
+    });
+
+    // A test sets `remove` to make an element vanish, as after an edit and a reload.
+    const remove = sessionStorage.getItem('remove');
+    if (remove) document.querySelector(remove)?.remove();
+  </script>
+</body>
+</html>
