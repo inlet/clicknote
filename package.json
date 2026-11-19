@@ -1,0 +1,35 @@
+{
+  "name": "clicknote",
+  "version": "0.4.0",
+  "description": "Annotate web pages in a Chromium browser and send the annotations to your coding agent.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "clicknote": "dist/bridge/cli.mjs"
+  },
+  "files": [
+    "dist/bridge/cli.mjs",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test \"test/unit/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit",
+    "bundle": "node build.mjs",
+    "test:e2e": "node build.mjs --e2e && playwright test",
+    "readme:screenshot": "node build.mjs --e2e && node docs/readme/screenshot.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@types/chrome": "^0.3.7",
+    "@types/jsdom": "^30.0.0",
+    "@types/node": "^26.6.6",
+    "esbuild": "^0.28.2",
+    "jsdom": "^31.0.0",
+    "typescript": "^7.0.2"
+  }
+}
