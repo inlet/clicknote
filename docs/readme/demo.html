@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Tallyfern: plan the week together</title>
+  <link rel="icon" href="data:,">
+  <!-- The page for the pictures of the look (docs/readme/screenshot.mjs). Tallyfern is an
+       invented product. System fonts, inline CSS and inline SVG only. -->
+  <style>
+    :root {
+      --ink: #14211b;
+      --muted: #56645d;
+      --faint: #8a968f;
+      --line: #dfe7e2;
+      --brand: #1f7a4d;
+      --brand-dark: #17603c;
+      --brand-soft: #e7f3ec;
+    }
+    * { box-sizing: border-box; }
+    html { color-scheme: light; }
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--ink);
+      font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 32px; }
+
+    header { border-bottom: 1px solid var(--line); background: #fff; }
+    .nav { display: flex; align-items: center; gap: 32px; height: 64px; }
+    .logo { display: flex; align-items: center; gap: 8px; font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
+    .menu { display: flex; gap: 24px; margin: 0; padding: 0; list-style: none; color: var(--muted); font-size: 15px; }
+    .account { display: flex; align-items: center; gap: 20px; margin-left: auto; font-size: 15px; }
+    .sign-in { color: var(--faint); }
+
+    .button {
+      display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0 18px;
+      border: 1px solid transparent; border-radius: 8px; font-size: 15px; font-weight: 600;
+    }
+    .button.small { height: 34px; padding: 0 14px; font-size: 14px; }
+    .button.solid { background: var(--brand); color: #fff; }
+    .button.outline { border-color: #c9d6cf; background: #fff; color: var(--ink); }
+
+    .hero {
+      padding: 34px 0 28px;
+      background: linear-gradient(180deg, var(--brand-soft) 0%, #f5faf7 65%, #fff 100%);
+      text-align: center;
+    }
+    h1 { margin: 0; font-size: 42px; line-height: 1.12; letter-spacing: -0.025em; }
+    .lead { margin: 10px auto 0; max-width: 720px; color: var(--muted); font-size: 18px; line-height: 1.5; }
+    .actions { display: flex; justify-content: center; gap: 12px; margin-top: 20px; }
+
+    .features-section { padding-top: 20px; padding-bottom: 40px; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .card {
+      padding: 18px 20px 20px; border: 1px solid var(--line); border-radius: 12px; background: #fff;
+      box-shadow: 0 1px 2px rgb(20 33 27 / 0.04);
+    }
+    .card-title { display: flex; align-items: center; gap: 10px; }
+    .card h3 { margin: 0; font-size: 17px; line-height: 1.3; }
+    .icon {
+      display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: 8px;
+      background: var(--brand-soft); color: var(--brand);
+    }
+    .icon svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .card p { margin: 10px 0 0; color: var(--muted); font-size: 15px; line-height: 1.45; }
+
+    .teams { padding: 44px 0 240px; border-top: 1px solid var(--line); background: #f7f9f8; }
+    .teams h2 { margin: 0; max-width: 360px; font-size: 26px; line-height: 1.2; letter-spacing: -0.015em; }
+    .teams p { margin: 12px 0 0; max-width: 380px; color: var(--muted); font-size: 16px; }
+    .teams a { display: inline-block; margin-top: 16px; color: var(--brand); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="wrap nav" aria-label="Main">
+      <a class="logo" href="#">
+        <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+          <rect width="26" height="26" rx="7" fill="#1f7a4d"/>
+          <path d="M13 20V9.5M13 13.5c-2.8 0-4.8-1.6-5.5-4.3 2.8 0 4.8 1.5 5.5 4.3zM13 11c.6-2.6 2.6-4.2 5.5-4.2-.6 2.7-2.6 4.2-5.5 4.2z"
+            fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Tallyfern
+      </a>
+      <ul class="menu">
+        <li><a href="#">Product</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Templates</a></li>
+        <li><a href="#">Changelog</a></li>
+      </ul>
+      <div class="account">
+        <a id="sign-in" class="sign-in" href="#">Sign in</a>
+        <a class="button solid small" href="#">Start free</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <h1>Plan the week together, in ten minutes</h1>
+        <p class="lead">Tallyfern puts your team's tasks, meetings and deadlines on one calm board.</p>
+        <div class="actions">
+          <a id="demo" class="button solid" href="#">Book a demo</a>
+          <a id="trial" class="button outline" href="#">Start free trial</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap features-section" aria-label="Features">
+      <div id="features" class="features">
+        <article class="card">
+          <div class="card-title">
+            <span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M3.5 9.5h17M9.5 9.5v10"/></svg></span>
+            <h3>One shared board</h3>
+          </div>
+          <p>Tasks, meetings and deadlines for the whole team, side by side in one view.</p>
+        </article>
+        <article class="card">
+          <div class="card-title">
+            <span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg></span>
+            <h3>Gentle reminders</h3>
+          </div>
+          <p id="reminders-text">A short nudge the day before something is due, sent to whoever owns it, in the app or by email.</p>
+        </article>
+        <article class="card">
+          <div class="card-title">
+            <span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5h16"/><path d="M7 16v-4M12 16V8M17 16v-6"/></svg></span>
+            <h3>Friday review</h3>
+          </div>
+          <p>See what moved, what slipped and what comes next, in five minutes.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="teams">
+      <div class="wrap">
+        <h2>Built for teams of five to fifty</h2>
+        <p>Free for up to five people. Bigger teams pay per person and can stop at any time.</p>
+        <a href="#">See pricing</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
