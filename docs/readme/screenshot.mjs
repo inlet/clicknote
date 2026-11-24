@@ -1,5 +1,5 @@
 // Makes the pictures under docs/readme/ that show the look of the extension:
-// - annotating.png, the screenshot at the top of the README: the demo page with three
+// - annotating.png, the screenshot under How in the README: the demo page with three
 //   annotations, the popup of a fourth being written, and the bar with a waiting agent chosen;
 // - look-dark.png: the same in dark mode, where the bar, the popup and the outline are dark and
 //   the demo page, which has no dark mode, stays light;

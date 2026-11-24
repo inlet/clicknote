@@ -17,7 +17,7 @@
 
 Clicknote is a browser extension and a skill for your coding agent. You click elements on a web page, write what should change or what you want to know, and send it all to the agent. It works in any coding agent with a shell and skills, such as Claude Code, Codex and OpenCode.
 
-![A product landing page in Chrome with three numbered markers: on the "Start free trial" button, on the row of feature cards and on the "Sign in" link. Under the text of the middle card, which is outlined, a popup shows the element's label, the comment "Shorten this to two lines, like the other cards" being written, the Change and Question switch on Change, and Cancel and Add. At the bottom right, the Annotations bar lists the three comments, two marked Change and one Question, with a general comment below them, the waiting agent "● my-site · landing page copy · claude-code · waiting" chosen in the dropdown, its entry cut at the end to fit, and the Copy and Send buttons.](docs/readme/annotating.png)
+https://github.com/user-attachments/assets/55552e72-3161-4364-a042-679bdb840fd7
 
 ## Why
 
@@ -26,6 +26,8 @@ Agents build pages fast, but feedback on a page is visual, and a chat is text. S
 ## How
 
 Give the feedback on the page itself. Click an element, write what should change or what you want to know, and do the same for everything else that bothers you. Then press Send.
+
+![A product landing page in Chrome with three numbered markers: on the "Start free trial" button, on the row of feature cards and on the "Sign in" link. Under the text of the middle card, which is outlined, a popup shows the element's label, the comment "Shorten this to two lines, like the other cards" being written, the Change and Question switch on Change, and Cancel and Add. At the bottom right, the Annotations bar lists the three comments, two marked Change and one Question, with a general comment below them, the waiting agent "● my-site · landing page copy · claude-code · waiting" chosen in the dropdown, its entry cut at the end to fit, and the Copy and Send buttons.](docs/readme/annotating.png)
 
 Your agent asked for the feedback and waits for it. It gets one line that points to a folder with each comment next to the element's CSS selector, text, HTML and styles, and a screenshot of the element as you saw it. It carries out the Change items and answers the Question items in its own conversation.
 
