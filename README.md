@@ -17,7 +17,11 @@
 
 Clicknote is a browser extension and a skill for your coding agent. You click elements on a web page, write what should change or what you want to know, and send it all to the agent. It works in any coding agent with a shell and skills, such as Claude Code, Codex and OpenCode.
 
+<div align="center">
+
 https://github.com/user-attachments/assets/55552e72-3161-4364-a042-679bdb840fd7
+
+</div>
 
 ## Why
 
