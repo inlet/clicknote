@@ -6,7 +6,10 @@
 // - look-queued.png: the bar alone after a send of three annotations to an agent that does not
 //   wait, so the send is queued and its line is on offer;
 // - look-icons.png: the extension's four icons, each at its own size and each pixel shown 2x2, on
-//   a light and on a dark toolbar ground.
+//   a light and on a dark toolbar ground;
+// - social-preview.png: the repository's social preview, the picture a shared link to it shows,
+//   made from the icon and annotating.png. GitHub does not take it from the repository: upload it
+//   by hand under Settings, General, Social preview.
 //
 //   npm run readme:screenshot
 //
@@ -45,6 +48,7 @@ await annotating('light', 'annotating.png');
 await annotating('dark', 'look-dark.png');
 await queued('look-queued.png');
 await icons('look-icons.png');
+await socialPreview('social-preview.png');
 
 // The demo page in the colour scheme given, with a session that closes afterwards.
 async function withDemo(colorScheme, body) {
@@ -136,6 +140,73 @@ async function icons(name) {
   try {
     await session.page.setContent(html);
     await session.page.locator('#sheet').screenshot({ path: join(HERE, name) });
+    console.log(`wrote ${relative(ROOT, join(HERE, name))}`);
+  } finally {
+    await session.close();
+  }
+}
+
+// The social preview, at the 1280 x 640 that GitHub asks for, on the lilac of the icon's tile: on
+// the left the icon, the name and the tagline; on the right the README's scene, cut from
+// annotating.png, in a window drawn like the one in the icon; and over its corner the icon's
+// bubble with the start of the line the agent gets.
+async function socialPreview(name) {
+  const icon = readFileSync(join(ROOT, 'extension', 'icons', 'icon.svg'), 'utf8');
+  const scene = `data:image/png;base64,${readFileSync(join(HERE, 'annotating.png')).toString('base64')}`;
+  // The part of annotating.png (2560 x 1600) that the window shows, from its left and top edge,
+  // and the scale it is shown at: the popup and the whole bar.
+  const cut = { left: 990, top: 560, scale: 0.42 };
+  const html = `<!doctype html><html><head><meta charset="utf-8"><style>
+    body {
+      margin: 0; width: 1280px; height: 640px; overflow: hidden; position: relative;
+      background: #EEF0FF radial-gradient(#C9CEFF 1.4px, transparent 1.6px) 14px 14px / 28px 28px;
+      font-family: system-ui, sans-serif; color: #1B1B1F; -webkit-font-smoothing: antialiased;
+    }
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-weight: 600; }
+    .text { position: absolute; left: 72px; top: 0; bottom: 0; width: 440px; display: flex; flex-direction: column; justify-content: center; }
+    .brand { display: flex; align-items: center; gap: 18px; }
+    .brand svg { width: 76px; height: 76px; display: block; }
+    h1 { margin: 0; font-size: 74px; line-height: 1; font-weight: 800; letter-spacing: -0.035em; }
+    .tagline { margin: 34px 0 0; font-size: 33px; line-height: 1.18; font-weight: 700; letter-spacing: -0.015em; }
+    .sub { margin: 18px 0 0; font-size: 21px; line-height: 1.4; color: #55555F; }
+    .chips { margin-top: 30px; display: flex; gap: 10px; }
+    .chip { font-size: 16px; font-weight: 600; padding: 7px 14px; border: 2.5px solid #1B1B1F; border-radius: 999px; background: #FFFFFF; }
+    .chip.skill { background: #B9F27C; }
+    .window {
+      position: absolute; left: 560px; top: 76px; width: 660px; overflow: hidden;
+      border: 3px solid #1B1B1F; border-radius: 18px; background: #FFFFFF; box-shadow: 12px 12px 0 #A9B5FF;
+    }
+    .toolbar { height: 38px; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: #A9B5FF; border-bottom: 3px solid #1B1B1F; }
+    .dot { width: 11px; height: 11px; border-radius: 50%; background: #1B1B1F; }
+    .address { margin-left: 14px; font-size: 14px; padding: 5px 12px; background: #FFFFFF; border: 2px solid #1B1B1F; border-radius: 8px; }
+    .scene { height: 436px; position: relative; overflow: hidden; }
+    .scene img { position: absolute; width: ${2560 * cut.scale}px; left: ${-cut.left * cut.scale}px; top: ${-cut.top * cut.scale}px; }
+    .bubble { position: absolute; left: 470px; top: 512px; }
+    .bubble > svg { display: block; overflow: visible; }
+    .line { position: absolute; inset: 0; display: flex; align-items: center; gap: 12px; padding: 0 22px; font-size: 17px; white-space: nowrap; }
+  </style></head><body>
+    <div class="text">
+      <div class="brand">${icon}<h1>Clicknote</h1></div>
+      <p class="tagline">Feedback on a web page, straight to your coding agent.</p>
+      <p class="sub">Click what should change, say how, and send it all in one go.</p>
+      <div class="chips"><span class="chip">Chromium extension</span><span class="chip skill">Agent skill</span></div>
+    </div>
+    <div class="window">
+      <div class="toolbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="address mono">localhost:3000</span></div>
+      <div class="scene"><img src="${scene}"></div>
+    </div>
+    <div class="bubble">
+      <svg width="520" height="64"><path d="M16 0H96L118-26L126 0H504A16 16 0 0 1 520 16V48A16 16 0 0 1 504 64H16A16 16 0 0 1 0 48V16A16 16 0 0 1 16 0Z" fill="#FFD08A" stroke="#1B1B1F" stroke-width="3" stroke-linejoin="round"/></svg>
+      <div class="line mono">
+        <svg width="26" height="20" fill="none" stroke="#1B1B1F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l7 7-7 7M15 17h9"/></svg>
+        Browser annotations (4) on localhost:3000 …
+      </div>
+    </div>
+  </body></html>`;
+  const session = await launch({ folder: HERE, page: 'demo.html', browser: { viewport: { width: 1280, height: 640 }, deviceScaleFactor: 1 } });
+  try {
+    await session.page.setContent(html);
+    await session.page.screenshot({ path: join(HERE, name) });
     console.log(`wrote ${relative(ROOT, join(HERE, name))}`);
   } finally {
     await session.close();
